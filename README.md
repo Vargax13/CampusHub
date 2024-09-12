@@ -1,4 +1,4 @@
-# untitled
+# CampusHub
 
 A new Flutter project.
 
