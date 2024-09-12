@@ -23,6 +23,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
+  #assets:#
     #- assets/brasao_ufes.png
     #- assets/mapa_ufes_sao_mateus.png
