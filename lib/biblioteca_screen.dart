@@ -28,7 +28,7 @@ class _BibliotecaScreenState extends State<BibliotecaScreen> {
   ];
 
   int _borrowedBooks = 3;
-  double _pendingFines = 15.50;
+  double _pendingFines = 15;
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +55,8 @@ class _BibliotecaScreenState extends State<BibliotecaScreen> {
 
   Widget _buildUserInfo() {
     return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colors.grey[200],
+      padding: const EdgeInsets.all(10),
+      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -64,7 +64,6 @@ class _BibliotecaScreenState extends State<BibliotecaScreen> {
             'Livros emprestados: $_borrowedBooks/5',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 8),
           Text(
             'Multas pendentes: R\$ ${_pendingFines.toStringAsFixed(2)}',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

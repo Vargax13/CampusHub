@@ -3,6 +3,7 @@ import 'jornal_academico_screen.dart';
 import 'mapa_campus_screen.dart';
 import 'biblioteca_screen.dart';
 import 'restaurante_screen.dart';
+import 'gerenciar_cartoes_screen.dart';
 
 class MainMenuScreen extends StatelessWidget {
   final bool isServidor;
@@ -27,6 +28,7 @@ class MainMenuScreen extends StatelessWidget {
             _buildMenuOption(context, 'Biblioteca', Icons.library_books),
             _buildMenuOption(context, 'Mapa do Campus', Icons.map),
             _buildMenuOption(context, 'Jornal Acadêmico', Icons.newspaper),
+            _buildMenuOption(context, 'Gerenciar Cartões', Icons.credit_card),
           ],
         ),
       ),
@@ -60,6 +62,12 @@ class MainMenuScreen extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const RestauranteUniversitarioScreen(),
+              ),
+            );
+          } else if (title == 'Gerenciar Cartões') {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const GerenciarCartoesScreen(),
               ),
             );
           } else {
