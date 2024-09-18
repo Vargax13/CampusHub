@@ -7,8 +7,12 @@ class MapaCampusScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mapa do Campus UFES - São Mateus'),
+        title: const Text(
+          'Mapa do Campus UFES - São Mateus',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF003366),
+        iconTheme: const IconThemeData(color: Colors.white),  // Define a cor da seta para branca
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -24,7 +28,7 @@ class MapaCampusScreen extends StatelessWidget {
               minScale: 0.5,
               maxScale: 4.0,
               child: Image.asset(
-                'assets/mapa_ufes_sao_mateus.png',
+                'imagem/mapa_ufes_sao_mateus.png',
                 fit: BoxFit.contain,
               ),
             ),

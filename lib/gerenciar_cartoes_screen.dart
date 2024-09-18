@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class GerenciarCartoesScreen extends StatefulWidget {
   const GerenciarCartoesScreen({Key? key}) : super(key: key);
@@ -11,11 +13,38 @@ class _GerenciarCartoesScreenState extends State<GerenciarCartoesScreen> {
   List<CreditCard> cards = [];
 
   @override
+  void initState() {
+    super.initState();
+    _loadCards();
+  }
+
+  Future<void> _loadCards() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? cardsJson = prefs.getString('credit_cards');
+    if (cardsJson != null) {
+      final List<dynamic> decodedList = json.decode(cardsJson);
+      setState(() {
+        cards = decodedList.map((item) => CreditCard.fromJson(item)).toList();
+      });
+    }
+  }
+
+  Future<void> _saveCards() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String cardsJson = json.encode(cards.map((card) => card.toJson()).toList());
+    await prefs.setString('credit_cards', cardsJson);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gerenciar Cartões'),
+        title: const Text(
+          'Gerenciar Cartões',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF003366),
+        iconTheme: const IconThemeData(color: Colors.white),  // Define a cor da seta para branca
       ),
       body: ListView.builder(
         itemCount: cards.length,
@@ -29,6 +58,7 @@ class _GerenciarCartoesScreenState extends State<GerenciarCartoesScreen> {
               onPressed: () {
                 setState(() {
                   cards.removeAt(index);
+                  _saveCards();
                 });
               },
             ),
@@ -37,8 +67,8 @@ class _GerenciarCartoesScreenState extends State<GerenciarCartoesScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addNewCard,
-        child: const Icon(Icons.add),
         backgroundColor: const Color(0xFF003366),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -88,14 +118,20 @@ class _GerenciarCartoesScreenState extends State<GerenciarCartoesScreen> {
             TextButton(
               child: const Text('Adicionar'),
               onPressed: () {
-                if (cardNumber.isNotEmpty && cardHolderName.isNotEmpty) {
+                if (cardNumber.isNotEmpty && cardHolderName.isNotEmpty && expiryDate.isNotEmpty && cvv.isNotEmpty) {
                   setState(() {
                     cards.add(CreditCard(
                       lastFourDigits: cardNumber.substring(cardNumber.length - 4),
                       cardHolderName: cardHolderName,
+                      expiryDate: expiryDate,
                     ));
+                    _saveCards();
                   });
                   Navigator.of(context).pop();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Por favor, preencha todos os campos.')),
+                  );
                 }
               },
             ),
@@ -109,6 +145,23 @@ class _GerenciarCartoesScreenState extends State<GerenciarCartoesScreen> {
 class CreditCard {
   final String lastFourDigits;
   final String cardHolderName;
+  final String expiryDate;
 
-  CreditCard({required this.lastFourDigits, required this.cardHolderName});
+  CreditCard({required this.lastFourDigits, required this.cardHolderName, required this.expiryDate});
+
+  factory CreditCard.fromJson(Map<String, dynamic> json) {
+    return CreditCard(
+      lastFourDigits: json['lastFourDigits'],
+      cardHolderName: json['cardHolderName'],
+      expiryDate: json['expiryDate'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'lastFourDigits': lastFourDigits,
+      'cardHolderName': cardHolderName,
+      'expiryDate': expiryDate,
+    };
+  }
 }
