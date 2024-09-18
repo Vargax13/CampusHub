@@ -14,8 +14,12 @@ class MainMenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menu Principal UFES'),
+        title: const Text(
+          'Menu Principal CampusHub',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF003366),
+        iconTheme: const IconThemeData(color: Colors.white),  // Define a cor da seta para branca
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,7 +65,7 @@ class MainMenuScreen extends StatelessWidget {
           } else if (title == 'Restaurante Universitário') {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const RestauranteUniversitarioScreen(),
+                builder: (context) => RestauranteUniversitarioScreen(),
               ),
             );
           } else if (title == 'Gerenciar Cartões') {

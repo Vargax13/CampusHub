@@ -18,25 +18,30 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Campus Hub'),
+        title: const Text(
+          'CampusHub',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF003366),
+        iconTheme: const IconThemeData(color: Colors.white),  // Define a cor da seta para branca
       ),
+
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(100.0),
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/brasao_ufes.png',
-                height: 100,
+                'imagem/logo_ufes.png',
+                height: 200,
               ),
               const SizedBox(height: 20),
               DropdownButtonFormField<String>(
                 value: _userType,
-                decoration: InputDecoration(
-                  labelText: 'Tipo de Usuário',
+                decoration: const InputDecoration(
+                  labelText: 'Filiação',
                   border: OutlineInputBorder(),
                   filled: true,
                   fillColor: Colors.white,
@@ -100,7 +105,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   }
                 },
-                child: const Text('Entrar', style: TextStyle(fontSize: 18)),
+                child: const Text(
+                  'Entrar',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,  // Define a cor branca
+                  ),
+                )
               ),
             ],
           ),

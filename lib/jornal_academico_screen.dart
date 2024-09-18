@@ -42,8 +42,12 @@ class _JornalAcademicoScreenState extends State<JornalAcademicoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Jornal Acadêmico UFES'),
+        title: const Text(
+          'Jornal Acadêmico UFES',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF003366),
+        iconTheme: const IconThemeData(color: Colors.white),  // Define a cor da seta para branca
       ),
       body: Column(
         children: [
@@ -204,7 +208,7 @@ class _JornalAcademicoScreenState extends State<JornalAcademicoScreen> {
                       Post(
                         title: _titleController.text,
                         content: _contentController.text,
-                        author: 'Servidor UFES', // Você pode personalizar isso
+                        author: 'Administração', // Você pode personalizar isso
                         date: DateTime.now(),
                       ),
                     );
